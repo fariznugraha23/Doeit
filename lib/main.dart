@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+//import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/pages/main_page.dart';
+import 'package:Doeit/pages/main_page.dart';
 void main(){
   runApp(MyApp());
 }
