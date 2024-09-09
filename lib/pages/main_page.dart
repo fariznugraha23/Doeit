@@ -1,4 +1,5 @@
 
+import 'package:Doeit/pages/transaction_page.dart';
 import 'package:calendar_appbar/calendar_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:Doeit/pages/category_page.dart';
@@ -39,7 +40,15 @@ class _MainPagetState extends State<MainPage> {
       floatingActionButton: Visibility(
         visible: (currentIndex==0) ? true : false,
         child: FloatingActionButton(
-          onPressed:(){}, 
+          onPressed:(){
+            Navigator.of(context)
+            .push(MaterialPageRoute(
+              builder: (context)=>TransactionPage(),
+            ))
+            .then((value){
+              setState((){});
+            });
+          }, 
         backgroundColor: Colors.purple, 
         child: Icon(Icons.add, color: Colors.white,),
             ),
