@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class TransactionPage extends StatefulWidget {
   const TransactionPage({super.key});
@@ -12,6 +13,7 @@ class _TransactionPageState extends State<TransactionPage> {
   bool isExpense = true;
   List<String> list = ['Makan dan Jajan', 'Transportasi', 'Nonton Film'];
   late String dropdownValue = list.first;
+  TextEditingController dateController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +21,7 @@ class _TransactionPageState extends State<TransactionPage> {
       body: SingleChildScrollView(
         child: SafeArea(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
@@ -47,7 +50,18 @@ class _TransactionPageState extends State<TransactionPage> {
                     border: UnderlineInputBorder(), 
                     labelText: "Jumlah"),
                 ),
-              ), Padding(
+              ),
+              SizedBox(
+                height: 25,
+              ), 
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                    "Kategori", 
+                    style: TextStyle(fontSize: 16),
+                  ),
+              ),
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: DropdownButton <String>(
                   value: dropdownValue,
@@ -62,7 +76,37 @@ class _TransactionPageState extends State<TransactionPage> {
                 onChanged: (String? value){
                 
                 }),
-              )
+              ),
+              SizedBox(
+                height: 25,
+              ), 
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  readOnly: true,
+                  controller: dateController,
+                  decoration: InputDecoration(labelText: "Pilih Tanggal"),
+                   onTap:()async{
+                      DateTime? pickedDate = await showDatePicker(
+                        context: context,
+                        initialDate: DateTime.now(), 
+                        firstDate: DateTime(2020), 
+                        lastDate: DateTime(2099));
+
+                        if (pickedDate != null){
+                          String formattedDate = 
+                          DateFormat('yyyy-MM-dd').format(pickedDate);
+                          dateController.text = formattedDate;
+                        }
+                   },
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              Center(child: ElevatedButton(style: ElevatedButton.styleFrom(
+                        backgroundColor:  Colors.green, //background color of button   
+                    ),onPressed: (){}, child: Text('Save',style: TextStyle(color: Colors.white))))               
             ],
           ))),
     );
